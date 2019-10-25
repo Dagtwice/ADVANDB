@@ -82,12 +82,12 @@
 
         <table>
             <tr>
-                <th>main.id</th>
-                <th>hpq_aquaniid</th>
-                <th>aquani_line</th>                
+                <th>Main ID</th>
+                <th>Animal ID</th>
+                <th>Animal Line</th>                
                 <th>Animal Type</th>
-                <th>aquanitype_o</th>
-                <th>aquani_vol?</th>
+                <th>Other Animal Type</th>
+                <th>Animal Volume</th>
             </tr>
             <?php
             include './Include/marConn.php';
@@ -98,6 +98,8 @@
                     FROM marinduque.hpq_aquani h, val_aquani v
                     where h.aquanitype = v.idval_aquani && v.type LIKE '".$_POST["type"]."'";   
                 $result = $conn->query($sql);
+                $endtime = microtime(true);
+                $duration = $endtime - $starttime; //calculates total time taken
                 $ctr=0;
                 if ($result->num_rows >= 0) {
                     // output data of each row  
@@ -115,8 +117,7 @@
                 } else {
                     echo "0 results";
                 }
-                $endtime = microtime(true);
-                $duration = $endtime - $starttime; //calculates total time taken
+                
             }else{
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaniid, aquani_line, aquanitype_o, aquani_vol, type
@@ -124,6 +125,8 @@
                     where h.aquanitype = v.idval_aquani";   
 
                 $result = $conn->query($sql);
+                $endtime = microtime(true);
+                $duration = $endtime - $starttime; //calculates total time taken
                 $ctr=0;
                 if ($result->num_rows >= 0) {
                     // output data of each row  
@@ -141,8 +144,7 @@
                 } else {
                     echo "0 results";
                 }
-                $endtime = microtime(true);
-                $duration = $endtime - $starttime; //calculates total time taken
+               
             }
             $conn->close();
             echo '<br>';

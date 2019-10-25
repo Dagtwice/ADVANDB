@@ -15,6 +15,7 @@
         <?php include './Include/marNavbar.php'; ?>
         <?php include './Include/marConn.php'; ?>
 
+<!--
         <table style="width:100%">
             <tr>
                 <th>Firstname</th>
@@ -50,5 +51,6 @@
             echo 'Number of rows: '.$ctr;
             ?>
         </table>
+-->
     </body>
 </html>

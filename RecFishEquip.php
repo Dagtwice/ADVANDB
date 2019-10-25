@@ -56,10 +56,10 @@
             <?php
             include './Include/marConn.php';
 
-            $sql = "SELECT type, count(aquaequiptype) as sum
-                FROM hpq_aquaequip, val_aquaequiptype
-                WHERE aquaequiptype = idaquaequiptype
-                GROUP BY aquaequiptype";   
+            $sql = "SELECT v.type, count(h.aquaequiptype) as sum
+                FROM hpq_aquaequip h, val_aquaequiptype v
+                WHERE h.aquaequiptype = v.aquaequiptype
+                GROUP BY h.aquaequiptype";   
 
             $result = $conn->query($sql);
             if ($result->num_rows >= 0) {
@@ -82,22 +82,24 @@
 
         <table>
             <tr>
-                <th>main.id</th>
-                <th>hpq_aquaequip.id</th>
-                <th>aquaequip_line</th>                
+                <th>Main ID</th>
+                <th>Equipment ID</th>
+                <th>Equipment Line</th>                
                 <th>Equipment Type</th>
-                <th>aquaequiptype_o</th>
+                <th>Other Equipment Type</th>
                 <th>Own</th>
             </tr>
             <?php
             include './Include/marConn.php';
             /*echo "Connected successfully";*/
-            if(isset($_POST["type"])){
+            if(isset($_POST["type"])){ //GOES HERE WHEN A FILTER IS SELECTED
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaequipid, aquaequip_line, aquaequiptype_o, aquaequiptype_own, type
                     FROM marinduque.hpq_aquaequip h, val_aquaequiptype v
-                    where h.aquaequiptype = v.idaquaequiptype && v.type LIKE '".$_POST["type"]."'";   
+                    where h.aquaequiptype = v.aquaequiptype && v.type LIKE '".$_POST["type"]."'";   
                 $result = $conn->query($sql);
+                $endtime = microtime(true);
+                $duration = $endtime - $starttime; //calculates total time taken
                 $ctr=0;
                 if ($result->num_rows >= 0) {
                     // output data of each row  
@@ -120,15 +122,16 @@
                 } else {
                     echo "0 results";
                 }
-                $endtime = microtime(true);
-                $duration = $endtime - $starttime; //calculates total time taken
-            }else{
+                
+            }else{ //GOES HERE WHEN NO FILTER IS SET
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaequipid, aquaequip_line, aquaequiptype_o, aquaequiptype_own, type
                     FROM marinduque.hpq_aquaequip h, val_aquaequiptype v
-                    where h.aquaequiptype = v.idaquaequiptype;";   
+                    where h.aquaequiptype = v.aquaequiptype;";   
 
                 $result = $conn->query($sql);
+                $endtime = microtime(true);
+                $duration = $endtime - $starttime; //calculates total time taken
                 $ctr=0;
                 if ($result->num_rows >= 0) {
                     // output data of each row  
@@ -149,9 +152,7 @@
                     }
                 } else {
                     echo "0 results";
-                }
-                $endtime = microtime(true);
-                $duration = $endtime - $starttime; //calculates total time taken
+                }                
             }
             $conn->close();
             echo '<br>';

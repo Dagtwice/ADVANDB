@@ -56,11 +56,12 @@
             <?php
             include './Include/marConn.php';
 
-            $sql = "SELECT type, count(croptype) as sum
-                FROM hpq_crop, val_crop
-                WHERE croptype = idval_crop
-                GROUP BY croptype";   
+            $sql = "SELECT v.type, count(h.croptype) as sum
+                FROM hpq_crop h, val_crop v
+                WHERE h.croptype = v.croptype
+                GROUP BY h.croptype";   
 
+         
             $result = $conn->query($sql);
             if ($result->num_rows >= 0) {
                 // output data of each row  
@@ -82,24 +83,25 @@
 
         <table>
             <tr>
-                <th>main.id</th>
-                <th>hpq_cropid</th>
-                <th>crop_line</th>                
-                <th>croptype</th>
-                <th>type</th>
-                <th>croptype_o</th>
-                <th>crop_vol</th>
+                <th>Main ID</th>
+                <th>Crop ID</th>
+                <th>Crop Line</th>                
+                <th>Crop Type</th>
+                <th>Other Crop Type</th>
+                <th>Crop Volume</th>
             </tr>
             <?php
             include './Include/marConn.php';
             /*echo "Connected successfully";*/
             if(isset($_POST["type"])){
                 $starttime = microtime(true);
-                $sql = "SELECT mainid, hpq_cropid, crop_line,croptype, type, croptype_o, crop_vol
+                $sql = "SELECT mainid, hpq_cropid, crop_line, type, croptype_o, crop_vol
                         FROM hpq_crop h, val_crop v
-                        where h.croptype = v.idval_crop && v.type LIKE '".$_POST["type"]."'";
+                        where h.croptype = v.croptype && v.type LIKE '".$_POST["type"]."'";
 
                 $result = $conn->query($sql);
+                $endtime = microtime(true);
+                $duration = $endtime - $starttime; //calculates total time taken
                 $ctr=0;
                 if ($result->num_rows >= 0) {
                     // output data of each row  
@@ -109,7 +111,6 @@
                         echo "<td>" . $row["mainid"]  . "</td>";
                         echo "<td>" . $row["hpq_cropid"]  . "</td>";
                         echo "<td>" . $row["crop_line"]  . "</td>";                      
-                        echo "<td>" . $row["croptype"]  . "</td>";
                         echo "<td>" . $row["type"]  . "</td>";
                         echo "<td>" . $row["croptype_o"]  . "</td>";
                         echo "<td>" . $row["crop_vol"]  . "</td>";
@@ -118,15 +119,15 @@
                 } else {
                     echo "0 results";
                 }
-                $endtime = microtime(true);
-                $duration = $endtime - $starttime; //calculates total time taken
+                
             }else{
                 $starttime = microtime(true);
-                $sql = "SELECT mainid, hpq_cropid, crop_line,croptype, type, croptype_o, crop_vol
+                $sql = "SELECT mainid, hpq_cropid, crop_line, type, croptype_o, crop_vol
                         FROM hpq_crop h, val_crop v
-                        where h.croptype = v.idval_crop ";   
-
+                        where h.croptype = v.croptype";   
                 $result = $conn->query($sql);
+                $endtime = microtime(true);
+                $duration = $endtime - $starttime; //calculates total time taken
                 $ctr=0;
                 if ($result->num_rows >= 0) {
                     // output data of each row  
@@ -136,7 +137,6 @@
                         echo "<td>" . $row["mainid"]  . "</td>";
                         echo "<td>" . $row["hpq_cropid"]  . "</td>";
                         echo "<td>" . $row["crop_line"]  . "</td>";                      
-                        echo "<td>" . $row["croptype"]  . "</td>";
                         echo "<td>" . $row["type"]  . "</td>";
                         echo "<td>" . $row["croptype_o"]  . "</td>";
                         echo "<td>" . $row["crop_vol"]  . "</td>";
@@ -145,8 +145,7 @@
                 } else {
                     echo "0 results";
                 }
-                $endtime = microtime(true);
-                $duration = $endtime - $starttime; //calculates total time taken
+                
             }
             $conn->close();
             echo '<br>';
