@@ -71,7 +71,12 @@
             $totalBeneficiaries=0;
             if(isset($_POST["brgy"])){
                 $starttime = microtime(true);
-                $sql = "SELECT mainid, brgy, prog_arcdp, prog_arcdp_nmem
+                $sql = "SELECT mainid, zone, brgy, purok,  prog_arcdp, prog_arcdp_nmem, 
+                            int_date, house_type,
+                            water, toil, tenur, imprnt, welec, 
+                            landagri, landres, landcomm, 
+                            imprnttot, totincsh, 
+                            disas_prep, fshort
                         FROM marinduque.hpq_hh
                         WHERE prog_arcdp = 1 && brgy LIKE '".$_POST["brgy"]."'
                         ORDER BY 1, 3";
@@ -83,9 +88,10 @@
                     while($row = $result->fetch_assoc()) {
                         $ctr++;
                         echo '<tr>';
-                        echo "<td>" . $row["mainid"]  . "</td>";       
+                         echo '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#' . $row["mainid"]  . '">' . $row["mainid"]  . '</button></td>';    
                         echo "<td>" . $row["prog_arcdp_nmem"]  . "</td>";
                         echo '</tr>';
+                        include './Include/modal.php';
                         $totalBeneficiaries +=  $row["prog_arcdp_nmem"];
                     }
                 } else {
@@ -104,7 +110,12 @@
 //                        LEFT JOIN val_crop v1 ON c.croptype = v1.croptype
 //                        WHERE prog_arcdp = 1 
 //                        ORDER BY 1, 3";   
-                $sql = "SELECT mainid, brgy, prog_arcdp, prog_arcdp_nmem 
+                $sql = "SELECT mainid, zone, brgy, purok,  prog_arcdp, prog_arcdp_nmem, 
+                            int_date, house_type,
+                            water, toil, tenur, imprnt, welec, 
+                            landagri, landres, landcomm, 
+                            imprnttot, totincsh, 
+                            disas_prep, fshort
                         FROM marinduque.hpq_hh
                         WHERE prog_arcdp = 1
                         ORDER BY 1, 3";   
@@ -113,12 +124,13 @@
                 if ($result->num_rows >= 0) {
                     // output data of each row  
                     while($row = $result->fetch_assoc()) {
-                        include './Include/modal.php';
+                        
                         $ctr++;
                         echo '<tr>';
                         echo '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#' . $row["mainid"]  . '">' . $row["mainid"]  . '</button></td>';
                         echo "<td>" . $row["prog_arcdp_nmem"]  . "</td>";
                         echo '</tr>';
+                        include './Include/modal.php';
                         $totalBeneficiaries +=  $row["prog_arcdp_nmem"];
                     }
                 } else {

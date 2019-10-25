@@ -149,7 +149,7 @@
             }
             $conn->close();
             echo '<br>';
-            echo 'Time to retrieve: '.$duration;
+            echo 'Time to retrieve table: '.$duration;
             echo '<br>';
             echo 'Number of rows returned: '.$ctr;
             ?>

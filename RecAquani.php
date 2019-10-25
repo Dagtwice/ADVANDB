@@ -56,10 +56,10 @@
             <?php
             include './Include/marConn.php';
 
-            $sql = "SELECT type, count(aquanitype) as sum
-                FROM hpq_aquani, val_aquani
-                WHERE aquanitype = idval_aquani
-                GROUP BY aquanitype";   
+            $sql = "SELECT v.type, count(h.aquanitype) as sum
+                FROM hpq_aquani h, val_aquani v
+                WHERE h.aquanitype = v.aquanitype
+                GROUP BY h.aquanitype";   
 
             $result = $conn->query($sql);
             if ($result->num_rows >= 0) {
@@ -96,7 +96,7 @@
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaniid, aquani_line, aquanitype_o, aquani_vol, type
                     FROM marinduque.hpq_aquani h, val_aquani v
-                    where h.aquanitype = v.idval_aquani && v.type LIKE '".$_POST["type"]."'";   
+                    where h.aquanitype = v.aquanitype && v.type LIKE '".$_POST["type"]."'";   
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
                 $duration = $endtime - $starttime; //calculates total time taken
@@ -122,7 +122,7 @@
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaniid, aquani_line, aquanitype_o, aquani_vol, type
                     FROM marinduque.hpq_aquani h, val_aquani v
-                    where h.aquanitype = v.idval_aquani";   
+                    where h.aquanitype = v.aquanitype";   
 
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
@@ -148,7 +148,7 @@
             }
             $conn->close();
             echo '<br>';
-            echo 'Time to retrieve: '.$duration;
+            echo 'Time to retrieve table: '.$duration;
             echo '<br>';
             echo 'Number of rows returned: '.$ctr;
             ?>
