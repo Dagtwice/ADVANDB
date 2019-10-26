@@ -9,8 +9,25 @@
             <li class="nav-item active">
                 <a class="nav-link" href="palawan.php">Palawan <span class="sr-only"></span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Records
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="PalRecFishEquip.php">Fishing Equipments</a>
+                    <a class="dropdown-item" href="PalRecCrop.php">Crops</a>
+                    <a class="dropdown-item" href="PalRecAquani.php">Aquatic Animals</a>
+<!--                    <a class="dropdown-item" href="RecLandPar.php">Land Parcels</a>-->
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Programs
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="PalProgArcdp.php">ARCDP</a>
+<!--                    <a class="dropdown-item" href="PHOFW.php">OFW Members</a>-->
+                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,9 +40,7 @@
                 </div>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        
     </div>
 </nav>
+<?php include './Include/palConn.php'; ?>

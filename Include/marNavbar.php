@@ -14,9 +14,9 @@
                     Records
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="RecFishEquip.php">Fishing Equipments</a>
-                    <a class="dropdown-item" href="RecCrop.php">Crops</a>
-                    <a class="dropdown-item" href="RecAquani.php">Aquatic Animals</a>
+                    <a class="dropdown-item" href="MarRecFishEquip.php">Fishing Equipments</a>
+                    <a class="dropdown-item" href="MarRecCrop.php">Crops</a>
+                    <a class="dropdown-item" href="MarRecAquani.php">Aquatic Animals</a>
 <!--                    <a class="dropdown-item" href="RecLandPar.php">Land Parcels</a>-->
                 </div>
             </li>
@@ -25,7 +25,7 @@
                     Programs
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="ProgArcdp.php">ARCDP</a>
+                    <a class="dropdown-item" href="MarProgArcdp.php">ARCDP</a>
 <!--                    <a class="dropdown-item" href="PHOFW.php">OFW Members</a>-->
                 </div>
             </li>
@@ -43,3 +43,4 @@
         
     </div>
 </nav>
+<?php include 'Include/marConn.php'; ?>

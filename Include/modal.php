@@ -16,11 +16,13 @@ echo '<div class="modal fade" id="' . $row["mainid"]  . '" tabindex="-1" role="d
                 <b>Barangay: </b>'.$row["brgy"].'<br>
                 <b>Purok: </b>'.$row["purok"].'<br>
                 <b>Interview Date: </b>'.$row["int_date"].'<br>
+                <b>Start Time: </b>'.$row["start_time"].'<br>
+                <b>End Time: </b>'.$row["end_time"].'<br>
                 <b>House Type: </b>'.$row["house_type"].'<br>
                 <b>Has Electricity: </b>'.$row["welec"].'<br>
                 <b>Water Source: </b>'.$row["water"].'<br>
-                <b>Bathroom: </b>'.$row["toil"].'<br>
-                <b>Tenur: </b>'.$row["tenur"].'<br>
+                <b>Bathroom Type: </b>'.$row["toil"].'<br>
+                <b>Tenur Type: </b>'.$row["tenur"].'<br>
                 <b>Estimate Rent Price: </b>'.$row["imprnt"].'<br>
                 <b>Number of Agricultural Land Owned: </b>'.$row["landagri"].'<br>
                 <b>Number of Residential Land Owned: </b>'.$row["landres"].'<br>

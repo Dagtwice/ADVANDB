@@ -13,6 +13,6 @@
     <body>
         <?php include './Include/bootstrap.php'; ?>
         <?php include './Include/palNavbar.php'; ?>
-        <?php include './Include/marConn.php'; ?>
+
     </body>
 </html>
