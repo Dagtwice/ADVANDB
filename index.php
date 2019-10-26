@@ -14,7 +14,7 @@
     <body>
         <?php include './Include/bootstrap.php'; ?>
         <?php include './Include/marNavbar.php'; ?>
-        <b>Education Profiles</b><br>
+        <b>Education Profile</b><br>
         <div class="container-fluid">
             <form action="index.php" method="POST">
                 <?php
@@ -99,7 +99,7 @@
                         break;
                 }
                 $sql = "SELECT v.type, count(v.type) as sum
-                    FROM marinduque.hpq_mem m
+                    FROM hpq_mem m
                     LEFT JOIN val_educal v ON v.educal = m.educal
                     ".$filter."
                     GROUP BY v.type
@@ -111,7 +111,7 @@
                 $duration = $endtime - $starttime; //calculates total time taken
             }else{
                 $sql = "SELECT v.type, count(v.type) as sum
-                    FROM marinduque.hpq_mem m
+                    FROM hpq_mem m
                     LEFT JOIN val_educal v ON v.educal = m.educal
                     WHERE age_yr>=25 AND age_yr<=59
                     GROUP BY v.type
@@ -150,8 +150,8 @@
                 <th>Reason Not in School</th>
                 <th>Other Reason</th>
                 <th>Educational Attainment</th>
-                <th>Has Job</th>
-                <th>Has Business</th>
+                <th>Job</th>
+                <th>Business</th>
             </tr>
             <?php
             if(isset($_POST["group"])){
@@ -205,15 +205,31 @@
                         echo '<tr style="background-color:'.$color.';">';
                         echo "<td>" . $row["mainid"]  . "</td>";
                         echo "<td>" . $row["memno"]  . "</td>";
-                        echo "<td>" . $row["sex"]  . "</td>";
+                        if($row["sex"] == 1){
+                            echo "<td>Male</td>";
+                        }else{
+                            echo "<td>Female</td>";
+                        }
                         echo "<td>" . $row["age_yr"]  . "</td>";
-                        echo "<td>" . $row["educind"]  . "</td>";
+                        if($row["educind"] == 1){
+                            echo "<td style='color:green;'>Enrolled</td>";
+                        }else{
+                            echo "<td style='color:red;'>Not Enrolled</td>";
+                        }
                         echo "<td>" . $row["gradel"]  . "</td>";
                         echo "<td>" . $row["ynotsch"]  . "</td>";
                         echo "<td>" . $row["ynotsch_o"]  . "</td>";
                         echo "<td>" . $row["educal"]  . "</td>";
-                        echo "<td>" . $row["jobind"]  . "</td>";
-                        echo "<td>" . $row["entrepind"]  . "</td>";
+                        if($row["jobind"] == 1){
+                            echo "<td style='color:green;'>Has Job</td>";
+                        }else{
+                            echo "<td style='color:red;'>No Job</td>";
+                        }
+                        if($row["entrepind"] == 1){
+                            echo "<td style='color:green;'>Has Business</td>";
+                        }else{
+                            echo "<td style='color:red;'>No Business</td>";
+                        }
                         echo '</tr>';
                         $mainid = $row["mainid"];
                     }

@@ -56,7 +56,10 @@
                 WHERE h.aquanitype = v.aquanitype
                 GROUP BY h.aquanitype";   
 
+            $starttime = microtime(true);
             $result = $conn->query($sql);
+            $endtime = microtime(true);
+            $duration = $endtime - $starttime; //calculates total time taken
             if ($result->num_rows >= 0) {
                 // output data of each row  
 
@@ -70,6 +73,7 @@
             } else {
                 echo "0 results";
             }
+            echo 'Time to retrieve summary table: '.$duration;
             ?>
         </table>
 
@@ -109,7 +113,7 @@
                 } else {
                     echo "0 results";
                 }
-                
+
             }else{
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaniid, aquani_line, aquanitype_o, aquani_vol, type
@@ -136,7 +140,7 @@
                 } else {
                     echo "0 results";
                 }
-               
+
             }
             $conn->close();
             echo '<br>';

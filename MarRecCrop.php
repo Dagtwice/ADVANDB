@@ -51,13 +51,16 @@
         </div>
         <table>
             <?php
+            $starttime = microtime(true);
             $sql = "SELECT v.type, count(h.croptype) as sum
                 FROM hpq_crop h, val_crop v
                 WHERE h.croptype = v.croptype
                 GROUP BY h.croptype";   
 
-         
+            
             $result = $conn->query($sql);
+            $endtime = microtime(true);
+            $duration = $endtime - $starttime; //calculates total time taken
             if ($result->num_rows >= 0) {
                 // output data of each row  
 
@@ -71,6 +74,7 @@
             } else {
                 echo "0 results";
             }
+            echo 'Time to retrieve summary table: '.$duration;
             ?>
         </table>
 
@@ -136,7 +140,7 @@
                 } else {
                     echo "0 results";
                 }
-                
+
             }
             $conn->close();
             echo '<br>';

@@ -56,10 +56,12 @@
                 WHERE h.aquaequiptype = v.aquaequiptype
                 GROUP BY h.aquaequiptype";   
 
+            $starttime = microtime(true);
             $result = $conn->query($sql);
+            $endtime = microtime(true);
+            $duration = $endtime - $starttime; //calculates total time taken
             if ($result->num_rows >= 0) {
                 // output data of each row  
-
                 while($row = $result->fetch_assoc()) {
                     echo '<tr>';
                     echo "<th>" . $row["type"]  . "</th>";
@@ -70,7 +72,7 @@
             } else {
                 echo "0 results";
             }
-
+            echo 'Time to retrieve summary table: '.$duration;
             ?>
         </table>
 
@@ -109,13 +111,13 @@
                         }else{
                             echo "<td>No</td>";
                         }
-                        
+
                         echo '</tr>';
                     }
                 } else {
                     echo "0 results";
                 }
-                
+
             }else{ //GOES HERE WHEN NO FILTER IS SET
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaequipid, aquaequip_line, aquaequiptype_o, aquaequiptype_own, type

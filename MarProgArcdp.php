@@ -65,7 +65,6 @@
                 <th>Number of Members Covered</th>
             </tr>
             <?php
-            include './Include/marConn.php';
             /*echo "Connected successfully";*/
             $totalBeneficiaries=0;
             if(isset($_POST["brgy"])){
