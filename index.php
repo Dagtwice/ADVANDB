@@ -210,7 +210,7 @@
                         }else{
                             echo "<td>Female</td>";
                         }
-                        echo "<td>" . $row["age_yr"]  . "</td>";
+                        echo "<td>" . $row["age_yr"]  . "yo</td>";
                         if($row["educind"] == 1){
                             echo "<td style='color:green;'>Enrolled</td>";
                         }else{
@@ -273,15 +273,31 @@
                         echo '<tr style="background-color:'.$color.';">';
                         echo "<td>" . $row["mainid"]  . "</td>";
                         echo "<td>" . $row["memno"]  . "</td>";
-                        echo "<td>" . $row["sex"]  . "</td>";
-                        echo "<td>" . $row["age_yr"]  . "</td>";
-                        echo "<td>" . $row["educind"]  . "</td>";
+                        if($row["sex"] == 1){
+                            echo "<td>Male</td>";
+                        }else{
+                            echo "<td>Female</td>";
+                        }
+                        echo "<td>" . $row["age_yr"]  . "yo</td>";
+                        if($row["educind"] == 1){
+                            echo "<td style='color:green;'>Enrolled</td>";
+                        }else{
+                            echo "<td style='color:red;'>Not Enrolled</td>";
+                        }
                         echo "<td>" . $row["gradel"]  . "</td>";
                         echo "<td>" . $row["ynotsch"]  . "</td>";
                         echo "<td>" . $row["ynotsch_o"]  . "</td>";
                         echo "<td>" . $row["educal"]  . "</td>";
-                        echo "<td>" . $row["jobind"]  . "</td>";
-                        echo "<td>" . $row["entrepind"]  . "</td>";
+                        if($row["jobind"] == 1){
+                            echo "<td style='color:green;'>Has Job</td>";
+                        }else{
+                            echo "<td style='color:red;'>No Job</td>";
+                        }
+                        if($row["entrepind"] == 1){
+                            echo "<td style='color:green;'>Has Business</td>";
+                        }else{
+                            echo "<td style='color:red;'>No Business</td>";
+                        }
                         echo '</tr>';
                         $mainid = $row["mainid"];
                     }

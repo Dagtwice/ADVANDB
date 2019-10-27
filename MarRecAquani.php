@@ -51,10 +51,15 @@
         </div>
         <table>
             <?php
+            //            $sql = "SELECT v.type, count(h.aquanitype) as sum
+            //                FROM hpq_aquani h, val_aquani v
+            //                WHERE h.aquanitype = v.aquanitype
+            //                GROUP BY h.aquanitype"; 
+
             $sql = "SELECT v.type, count(h.aquanitype) as sum
-                FROM hpq_aquani h, val_aquani v
-                WHERE h.aquanitype = v.aquanitype
-                GROUP BY h.aquanitype";   
+                    FROM hpq_aquani h RIGHT JOIN val_aquani v
+                    ON h.aquanitype = v.aquanitype
+                    GROUP BY h.aquanitype";
 
             $starttime = microtime(true);
             $result = $conn->query($sql);
@@ -92,7 +97,11 @@
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_aquaniid, aquani_line, aquanitype_o, aquani_vol, type
                     FROM hpq_aquani h, val_aquani v
-                    where h.aquanitype = v.aquanitype && v.type LIKE '".$_POST["type"]."'";   
+                    where h.aquanitype = v.aquanitype AND v.type LIKE '".$_POST["type"]."'";   
+//                $sql = "SELECT mainid, hpq_aquaniid, aquani_line, aquanitype_o, aquani_vol, type
+//                        FROM  hpq_aquani h RIGHT JOIN val_aquani v
+//                        ON h.aquanitype = v.aquanitype
+//                        WHERE v.type LIKE '".$_POST["type"]."'";  
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
                 $duration = $endtime - $starttime; //calculates total time taken

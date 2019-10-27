@@ -76,8 +76,8 @@
                             imprnttot, totincsh, 
                             disas_prep, fshort
                         FROM hpq_hh
-                        WHERE prog_arcdp = 1 && brgy LIKE '".$_POST["brgy"]."'
-                        ORDER BY 1, 3";
+                        WHERE prog_arcdp = 1 AND brgy LIKE '".$_POST["brgy"]."'
+                        ORDER BY 1";
 
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
@@ -88,7 +88,7 @@
                     while($row = $result->fetch_assoc()) {
                         $ctr++;
                         echo '<tr>';
-                        echo '<td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#' . $row["mainid"]  . '">' . $row["mainid"]  . '</button></td>';    
+                        echo '<td  style="padding:5px 5px 5px 12.5px;" ><buttontype="button" class="btn btn-success" data-toggle="modal" data-target="#' . $row["mainid"]  . '">' . $row["mainid"]  . '</button></td>';    
                         echo "<td>" . $row["prog_arcdp_nmem"]  . "</td>";
                         echo '</tr>';
                         include './Include/modal.php';
@@ -103,14 +103,6 @@
                     echo 'Total Number of Beneficiaries in Barangay '.$_POST["brgy"].': '.$totalBeneficiaries;
             }else{
                 $starttime = microtime(true);
-                //                $sql = "SELECT h.mainid, h.brgy, h.prog_arcdp, h.prog_arcdp_nmem, a.aquaequiptype, v.type AS aquaequiptype, c.croptype, v1.type AS croptype
-                //                        FROM marinduque.hpq_hh h 
-                //                        LEFT JOIN hpq_aquaequip a ON h.mainid = a.mainid 
-                //                        LEFT JOIN val_aquaequiptype v ON a.aquaequiptype = v.aquaequiptype
-                //                        LEFT JOIN hpq_crop c ON h.mainid = c.mainid 
-                //                        LEFT JOIN val_crop v1 ON c.croptype = v1.croptype
-                //                        WHERE prog_arcdp = 1 
-                //                        ORDER BY 1, 3";   
                 $sql = "SELECT mainid, zone, brgy, purok,  prog_arcdp, prog_arcdp_nmem, 
                             int_date, start_time, end_time,
                             house_type, water, toil, tenur, imprnt, welec, 
@@ -119,7 +111,7 @@
                             disas_prep, fshort
                         FROM hpq_hh
                         WHERE prog_arcdp = 1
-                        ORDER BY 1, 3";   
+                        ORDER BY 1";   
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
                 $duration = $endtime - $starttime; //calculates total time taken
@@ -130,7 +122,7 @@
 
                         $ctr++;
                         echo '<tr>';
-                        echo '<td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#' . $row["mainid"]  . '">' . $row["mainid"]  . '</button></td>';
+                        echo '<td style="padding:5px 5px 5px 12.5px;" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#' . $row["mainid"]  . '">' . $row["mainid"]  . '</button></td>';
                         echo "<td>" . $row["prog_arcdp_nmem"]  . "</td>";
                         echo '</tr>';
                         include './Include/modal.php';
@@ -139,7 +131,7 @@
                 } else {
                     echo "0 results";
                 }
-                echo 'Total Number of Beneficiaries: '.$totalBeneficiaries;
+                echo 'Total Number of Beneficiaries in All Barangays: '.$totalBeneficiaries;
             }
             $conn->close();
             echo '<br>';

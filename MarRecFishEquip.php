@@ -20,6 +20,9 @@
             <form action="MarRecFishEquip.php" method="POST">
                 <?php
                 if (isset($_POST["type"])){
+                    if (isset($_POST["query"])){
+                        echo $_POST["query"];
+                    }
                     echo "<p>Select Equipment Type: ";
                     $selected ="";
                     $sql2 = "SELECT type
@@ -54,7 +57,12 @@
             $sql = "SELECT v.type, count(h.aquaequiptype) as sum
                 FROM hpq_aquaequip h, val_aquaequiptype v
                 WHERE h.aquaequiptype = v.aquaequiptype
-                GROUP BY h.aquaequiptype";   
+                GROUP BY h.aquaequiptype"; 
+            //            $sql = "SELECT v.type, count(h.aquaequiptype) as sum
+            //            FROM hpq_aquaequip h RIGHT JOIN val_aquaequiptype v
+            //            ON h.aquaequiptype = v.aquaequiptype
+            //            GROUP BY h.aquaequiptype
+            //            "; 
 
             $starttime = microtime(true);
             $result = $conn->query($sql);
@@ -89,9 +97,13 @@
             /*echo "Connected successfully";*/
             if(isset($_POST["type"])){ //GOES HERE WHEN A FILTER IS SELECTED
                 $starttime = microtime(true);
+//                $sql = "SELECT mainid, hpq_aquaequipid, aquaequip_line, aquaequiptype_o, aquaequiptype_own, type
+//                        FROM hpq_aquaequip h, val_aquaequiptype v
+//                        where h.aquaequiptype = v.aquaequiptype AND v.type LIKE '".$_POST["type"]."'";   
                 $sql = "SELECT mainid, hpq_aquaequipid, aquaequip_line, aquaequiptype_o, aquaequiptype_own, type
-                    FROM hpq_aquaequip h, val_aquaequiptype v
-                    where h.aquaequiptype = v.aquaequiptype && v.type LIKE '".$_POST["type"]."'";   
+                        FROM hpq_aquaequip h RIGHT JOIN val_aquaequiptype v
+                        ON h.aquaequiptype = v.aquaequiptype
+                        WHERE v.type LIKE '".$_POST["type"]."'";   
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
                 $duration = $endtime - $starttime; //calculates total time taken

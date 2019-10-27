@@ -52,10 +52,15 @@
         <table>
             <?php
             $starttime = microtime(true);
-            $sql = "SELECT v.type, count(h.croptype) as sum
-                FROM hpq_crop h, val_crop v
-                WHERE h.croptype = v.croptype
-                GROUP BY h.croptype";   
+//            $sql = "SELECT v.type, count(h.croptype) as sum
+//                FROM hpq_crop h, val_crop v
+//                WHERE h.croptype = v.croptype
+//                GROUP BY h.croptype";   
+            
+             $sql = "SELECT v.type, count(h.croptype) as sum
+                    FROM hpq_crop h RIGHT JOIN val_crop v
+                    ON h.croptype = v.croptype
+                    GROUP BY h.croptype";   
 
             
             $result = $conn->query($sql);
@@ -93,7 +98,11 @@
                 $starttime = microtime(true);
                 $sql = "SELECT mainid, hpq_cropid, crop_line, type, croptype_o, crop_vol
                         FROM hpq_crop h, val_crop v
-                        where h.croptype = v.croptype && v.type LIKE '".$_POST["type"]."'";
+                        where h.croptype = v.croptype AND v.type LIKE '".$_POST["type"]."'";
+//                $sql = "SELECT mainid, hpq_cropid, crop_line, type, croptype_o, crop_vol
+//                        FROM  hpq_crop h RIGHT JOIN val_crop v
+//                        ON h.croptype = v.croptype
+//                        WHERE v.type LIKE '".$_POST["type"]."'";  
 
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
