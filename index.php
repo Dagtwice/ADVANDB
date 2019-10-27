@@ -179,6 +179,7 @@
                     LEFT JOIN val_gradel v2 ON v2.gradel = m.gradel
                     ".$filter."
                     ORDER BY 1, 4 DESC";   
+                $starttime = microtime(true);
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
                 $duration = $endtime - $starttime; //calculates total time taken
@@ -246,7 +247,7 @@
                     LEFT JOIN val_gradel v2 ON v2.gradel = m.gradel
                     WHERE age_yr>=25 AND age_yr<=59
                     ORDER BY 1, 4 DESC";   
-
+                $starttime = microtime(true);
                 $result = $conn->query($sql);
                 $endtime = microtime(true);
                 $duration = $endtime - $starttime; //calculates total time taken
